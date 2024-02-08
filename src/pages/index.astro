@@ -1,0 +1,75 @@
+---
+import '@fontsource-variable/manrope'
+import Advice from '../components/Advice.astro'
+---
+
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <link rel='icon' type='image/svg+xml' href='/favicon-32x32.png' />
+    <meta name='viewport' content='width=device-width' />
+    <meta name='generator' content={Astro.generator} />
+    <title>Frontend Mentor | Advice generator app</title>
+  </head>
+  <body>
+    <main>
+      <Advice />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --light-cyan: hsl(193, 38%, 86%);
+    --neon-green: hsl(150, 100%, 66%);
+    --grayish-blue: hsl(217, 19%, 38%);
+    --dark-grayish-blue: hsl(217, 19%, 24%);
+    --dark-blue: hsl(218, 23%, 16%);
+  }
+  * {
+    min-width: 0;
+    font: inherit;
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  html {
+    line-height: 1.5;
+  }
+  img,
+  video,
+  svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  body {
+    min-height: 100dvh;
+    margin: 0;
+    font-family: 'Manrope Variable', system-ui, sans-serif;
+    font-weight: 800;
+  }
+  button {
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    color: inherit;
+    background-color: transparent;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    text-wrap: balance;
+  }
+  p {
+    margin: 0;
+    text-wrap: pretty;
+  }
+</style>

@@ -1,0 +1,155 @@
+---
+
+---
+
+<section class='advice'>
+  <div class='advice-card'>
+    <div class='advice-card__header'>
+      <span>Advice</span>
+      <span id='advice-id'>#117</span>
+    </div>
+    <p id='advice-text' class='advice-card__p'>
+      “It is easy to sit up and take notice, what’s difficult is getting up and
+      taking action.”
+    </p>
+    <picture>
+      <source
+        media='(min-width: 768px)'
+        srcset='/images/pattern-divider-desktop.svg'
+      />
+      <img src='/images/pattern-divider-mobile.svg' alt='Pattern divider' />
+    </picture>
+    <div>
+      <button type='button' class='btn-primary' id='advice-button'>
+        <img src='/images/icon-dice.svg' alt='Icon dice' />
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .advice {
+    min-height: 100dvh;
+    padding-inline: 1rem;
+    padding-block: 7.5rem;
+    color: white;
+    background-color: var(--dark-blue);
+  }
+  .advice-card {
+    max-width: 33.75rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    padding-block-start: 2.5rem;
+    text-align: center;
+    border-radius: 0.625rem;
+    background-color: var(--dark-grayish-blue);
+  }
+  .advice-card__header {
+    text-transform: uppercase;
+    letter-spacing: 3.5px;
+    font-size: 0.6875rem;
+    color: var(--neon-green);
+  }
+  .advice-card > picture {
+    display: flex;
+    justify-content: center;
+  }
+  .advice-card__p {
+    margin-block: 1.5rem;
+    line-height: 1.4;
+    font-size: 1.5rem;
+    color: var(--light-cyan);
+  }
+  .btn-primary {
+    width: 4rem;
+    height: 4rem;
+    margin-inline: auto;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transform: translateY(50%);
+    background-color: var(--neon-green);
+  }
+  .btn-primary > img {
+    pointer-events: none;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 20px var(--neon-green);
+  }
+  .btn-primary.clicked {
+    pointer-events: none;
+    box-shadow: 0 0 20px var(--neon-green);
+  }
+  .btn-primary.clicked > img {
+    animation: rotate-dice 1s linear infinite;
+  }
+  @keyframes rotate-dice {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .advice-card {
+      padding-inline: 3.125rem;
+      padding-block-start: 2.875rem;
+    }
+    .advice-card__header {
+      font-size: 0.875rem;
+    }
+    .advice-card__p {
+      margin-block-end: 2.5rem;
+      font-size: 1.75rem;
+    }
+    .advice-card > picture {
+      margin-block-end: 0.5rem;
+    }
+  }
+  @media (min-height: 667px) {
+    .advice {
+      padding-block: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  const advice_id = document.querySelector('#advice-id')
+  const advice_text = document.querySelector('#advice-text')
+  const advice_button = document.querySelector('#advice-button')
+
+  const API_URL = 'https://api.adviceslip.com/advice'
+
+  async function getAdvice() {
+    try {
+      const res = await fetch(API_URL)
+      const { slip } = await res.json()
+      return slip
+    } catch (error) {
+      console.error('Error getting data from API:', error)
+    }
+  }
+
+  async function postAdvice() {
+    try {
+      const { id, advice } = await getAdvice()
+      advice_id.textContent = `#${id}`
+      advice_text.textContent = `“${advice}”`
+      advice_button.classList.remove('clicked')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  advice_button.addEventListener('click', () => {
+    advice_button.classList.add('clicked')
+    postAdvice()
+  })
+</script>
